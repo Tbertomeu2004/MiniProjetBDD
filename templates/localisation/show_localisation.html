@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Localisations</title>
+{% endblock %}
+
+{% block body %}
+    <div class="titre">
+        <h1>Localisations</h1>
+        <a href="/localisation/add" class="btn btn-success ajout">Ajouter une localisation</a>
+    </div>
+    <br>
+    <br>
+    {% if localisation | length >= 1 %}
+        <table class="table table-dark table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th class="col-md-1">Id</th>
+                    <th>Nom</th>
+                    <th>Activités concernées</th>
+                    <th class="col-md-2">Opérations</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ligne in localisation %}
+                <tr>
+                    <td>{{ ligne.id_localisation }}</td>
+                    <td>{{ ligne.nom_lieu }}</td>
+                    <td>{{ ligne.NBR }}</td>
+                    <td class="col-md-3">
+                        <a href="/localisation/edit?id={{ ligne.id_localisation }}" class="btn btn-primary">Editer</a>
+                        <a href="
+                            {% if ligne.NBR == 0 %}
+                                /localisation/delete?id={{ ligne.id_localisation }}
+                            {% else %}
+                                /localisation/toDelete?id={{ ligne.id_localisation }}
+                            {% endif %}
+                        " class="btn btn-danger">Supprimer</a>
+                   </td>
+               </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="titre">
+            <h1>Pas de localisation ༼ಢ_ಢ༽</h1>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Activités</title>
+{% endblock %}
+
+{% block body %}
+    <div class="titre">
+        <h1>Activités</h1>
+        <a href="/activite/add" class="btn btn-success ajout">Ajouter une activité</a>
+    </div>
+    <br>
+    <br>
+    {% if activite | length >= 1 %}
+        <h3>Nombre d'inscriptions:
+            {% if total_participants.total_participants != None %}
+                {{ total_participants.total_participants }}
+            {% else %}
+                0
+            {% endif %}
+            <br>Revenus:
+            {% if recettes.recettes != None %}
+                {{ recettes.recettes }} €
+            {% else %}
+                0 €
+            {% endif %}
+        </h3>
+        <table class="table table-dark table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th class="col-md-1">Id</th>
+                    <th>Nom</th>
+                    <th>Création</th>
+                    <th>Cout d'inscription (€)</th>
+                    <th>Type d'activité</th>
+                    <th>Participants</th>
+                    <th>Localisation</th>
+                    <th>Image</th>
+                    <th class="col-md-2">Opérations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in activite %}
+                    <tr>
+                        <td>{{ ligne.id_activite }}</td>
+                        <td>{{ ligne.nom_activite }}</td>
+                        <td>{{ ligne.date_creation }}</td>
+                        <td>{{ ligne.cout_inscription }}</td>
+                        <td>{{ ligne.type_activite }}</td>
+                        <td>{{ ligne.nb_participants }}</td>
+                        <td>
+                            {% for line in localisation %}
+                                {% if ligne.localisation_id == line.id_localisation %}
+                                    {{ line.nom_lieu }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {%  if ligne.image is not none %}
+                                <img style="max-height: 40px" src="{{ url_for('static', filename = 'images/' + ligne['image']) }}"  alt="image  de {{ ligne.image }}">
+                            {% else %}
+                                <img class="card-img" style="width:40px;height:40px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="no image" >
+                            {% endif %}
+                        </td>
+                        <td class="col-md-3">
+                           <a href="/activite/edit?id={{ ligne.id_activite }}" class="btn btn-primary">Editer</a>
+                           <a href="/activite/delete?id={{ ligne.id_activite }}" class="btn btn-danger">Supprimer</a>
+                       </td>
+                   </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="titre">
+            <h1>Pas d'activité ༼ಢ_ಢ༽</h1>
+        </div>
+    {% endif %}
+{% endblock %}

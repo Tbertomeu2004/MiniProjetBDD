@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{%  block title %}
+    <title>Activités à supprimer</title>
+{% endblock %}
+
+{% block body %}
+    <div class="titre">
+        <h1>{{ activites | length }} activités à supprimer</h1>
+    </div>
+    <br>
+    <br>
+    {% if activites | length >= 1 %}
+        <table class="table table-dark table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="col-md-1">Id</th>
+                    <th>Nom</th>
+                    <th>Date de création</th>
+                    <th>Cout d'inscription</th>
+                    <th>Type d'activité</th>
+                    <th>Participants</th>
+                    <th class="col-md-3">Opérations</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ligne in activites %}
+                <tr>
+                    <td>{{ ligne.id_activite }}</td>
+                    <td>{{ ligne.nom_activite }}</td>
+                    <td>{{ ligne.date_creation }}</td>
+                    <td>{{ ligne.cout_inscription }}</td>
+                    <td>{{ ligne.type_activite }}</td>
+                    <td>{{ ligne.nb_participants }}</td>
+                    <td>
+                      <a href="/activite/toDelete?id={{ ligne.id_activite }}&idLocalisation={{ id_localisation }}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="titre">
+            <h1>Pas d'activité ༼ಢ_ಢ༽</h1>
+        </div>
+    {% endif %}
+{% endblock %}

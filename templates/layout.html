@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% block title %}
+            <title>Titre</title>
+        {% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='mes_styles.css') }}">
+            <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        {% include('navbar.html') %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for categorie, message in messages %}
+            <div role="alert" class="alert {{ categorie }}">
+                   Information : <strong>{{ message }}</strong>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block body %}
+            <h1>Activités</h1>
+
+            <div class="container" style="margin-top: 5vh">
+                <div class="row">
+                    {% for ligne in activite %}
+                        <div class="col-sm" style="margin-bottom: 5vh">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="../static/images/{{ ligne.image }}" alt="{{ ligne.image }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ ligne.nom_activite }}</h5>
+                                    <p class="card-text">{{ ligne.type_activite }}</p>
+                                    <p class="card-text">Prix: {{ ligne.cout_inscription }} €</p>
+                                    <a href="https://www.google.com/maps/@35.7040744,139.5577317,3a,75y,287.76h,69.99t/data=!3m6!1e1!3m4!1sgT28ssf0BB2LxZ63JNcL1w!2e0!7i13312!8i6656" class="btn btn-primary">S'inscrire</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

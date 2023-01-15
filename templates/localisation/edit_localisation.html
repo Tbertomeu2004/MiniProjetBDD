@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Modifier la localisation</title>
+{% endblock %}
+
+{% block body %}
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+  <form method="post" action="/localisation/edit">
+    <fieldset>
+        <h2>Modification d'une localisation</h2>
+        <br>
+        <br>
+        <input type="hidden" name="id_localisation" size="18" value="{{ localisation.id_localisation }}" id="id_localisation">
+
+        <label for="nom_lieu">Nom du lieu: </label>
+        <input id="nom_lieu" type="text" maxlength="20" name="nom_lieu" value="{{ localisation.nom_lieu }}" placeholder="Saisir le nom" required>
+        <br>
+        <br>
+
+        <input type="submit" value="Modifier" name="Modifier" class="btn btn-success">
+    </fieldset>
+  </form>
+{% endblock %}

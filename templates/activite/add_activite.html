@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Ajouter une activité</title>
+{% endblock %}
+
+{% block body %}
+  <h2>Ajout d'une activité</h2>
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+  <form method="post" action="/activite/add">
+    <fieldset>
+        <label for="nom_activite">Nom de l'activité: </label>
+        <input id="nom_activite" type="text" maxlength="20" name="nom_activite" value="" placeholder="Saisir le nom" required>
+        <br>
+        <br>
+        <label for="date_creation">Date de création: </label>
+        <input id="date_creation" type="date" name="date_creation" value="" placeholder="Saisir la date" required>
+        <br>
+        <br>
+        <label for="cout_inscription">Coût d'inscription (€): </label>
+        <input id="cout_inscription" type="number" max="999" step=".01" name="cout_inscription" value="" placeholder="Saisir le coût" required>
+        <br>
+        <br>
+        <label for="type_activite">Type d'activité: </label>
+        <input id="type_activite" type="text" maxlength="20" name="type_activite" value="" placeholder="Saisir le type" required>
+        <br>
+        <br>
+        <label for="nb_participants">Nombre de participants: </label>
+        <input id="nb_participants" type="number" step="1" name="nb_participants" value="" placeholder="Saisir le nombre" required>
+        <br>
+        <br>
+        <label for="localisation_id">Lieu: </label>
+        <select name="localisation_id" id="localisation_id" required>
+            <option value="">Sélectionner un lieu</option>
+            {% for ligne in localisation %}
+                 <option value="{{ ligne.id_localisation }}"> {{ ligne.nom_lieu }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="image">Image: </label>
+        <input id="image" name="image" type="file" accept=".png, .jpg, .jpeg" value="" >
+        <br>
+        <br>
+
+        <input type="submit" value="Creer" name="Valider" class="btn btn-success">
+    </fieldset>
+  </form>
+{% endblock %}

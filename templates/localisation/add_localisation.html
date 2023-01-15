@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Ajouter une localisation</title>
+{% endblock %}
+
+{% block body %}
+  <h2>Ajout d'une localisation</h2>
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+  <form method="post" action="/localisation/add">
+    <fieldset>
+        <label for="nom_lieu">Nom du lieu: </label>
+        <input id="nom_lieu" type="text" maxlength="20" name="nom_lieu" value="" placeholder="Saisir le nom" required>
+        <br>
+        <br>
+
+        <input type="submit" value="Creer" name="Valider" class="btn btn-success">
+    </fieldset>
+  </form>
+{% endblock %}
